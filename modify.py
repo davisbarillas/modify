@@ -1,7 +1,13 @@
 #!/bin/sh
 import os
 import requests
-from config import SHIFTLEFT_ORG_ID, SHIFTLEFT_ACCESS_TOKEN
+#from config import SHIFTLEFT_ORG_ID, SHIFTLEFT_ACCESS_TOKEN
+
+try:
+    SHIFTLEFT_ORG_ID = os.environ["SHIFTLEFT_ORG_ID"]
+    SHIFTLEFT_ACCESS_TOKEN = os.environ["SHIFTLEFT_ACCESS_TOKEN"]
+except KeyError:
+    raise SystemExit("Oops! Do not forget to set both SHIFTLEFT_ORG_ID and SHIFTLEFT_ACCESS_TOKEN!")
 
 url = 'https://www.shiftleft.io/api/v4/orgs/{}/apps'.format(SHIFTLEFT_ORG_ID)
 headers = {'Authorization':'Bearer {}'.format(SHIFTLEFT_ACCESS_TOKEN)}
